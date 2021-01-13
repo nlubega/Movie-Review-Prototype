@@ -11,9 +11,10 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <title>Movie Reviews</title>
-<style>
+    <style>
     input {max-width: 72em};
-</style>
+
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
@@ -31,20 +32,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'main:add_movies' %}">Add Movie</a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                        {{user.username }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <hr class="dropdown-divider">
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
                         <li>
-                            <hr class="dropdown-divider">
+
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+                </li>
+                {% endif %}
 
             </ul>
             <form class="d-flex">
